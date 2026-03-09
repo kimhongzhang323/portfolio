@@ -224,7 +224,7 @@ nav ul li a:hover {
 }
 
 /* Stats */
-.stats {
+.hero-stats {
   display: flex;
   gap: 100px;
   margin-top: 40px;
@@ -506,11 +506,19 @@ nav ul li a:hover {
   .hero-top { flex-direction: column-reverse; gap: 40px; }
   .hero { flex-direction: column; align-items: flex-start; gap: 40px; }
   .hero-image-wrapper { transform: translateY(0); margin-bottom: 20px; }
+  .hero-stats { gap: 40px; }
+  .footer-main { flex-direction: column; gap: 40px; }
 }
 
 @media (max-width: 600px) {
   h1 { font-size: 40px; }
+  .container { padding: 0 20px; }
+  header { flex-direction: column; gap: 20px; }
+  nav ul { gap: 15px; }
   .footer-nav { flex-direction: column; gap: 40px; }
+  .hero-stats { flex-direction: column; gap: 20px; }
+  .footer-main h2 { font-size: 40px; }
+  .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
 }
 /* Scroll Animations */
 .animate-on-scroll {

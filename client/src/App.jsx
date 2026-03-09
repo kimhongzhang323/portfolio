@@ -207,18 +207,22 @@ function App() {
         </section>
 
         <section className="testimonial-section animate-on-scroll">
-          <div className="testimonial">
-            <span className="label">Testimonial</span>
-            <blockquote>
-              "Kim's ability to blend AI logic with seamless front-end design is truly unique. He brings a level of intelligence to products that goes beyond just code."
-            </blockquote>
-            <div className="testimonial-author">
-              <div className="author-image"></div>
-              <div className="author-info">
-                <h5>Internship Lead</h5>
-                <p>ANT International</p>
+          <span className="label" style={{ display: 'block', margin: '0 auto 40px', width: 'max-content' }}>Testimonials</span>
+          <div className="projects-grid">
+            {profile?.testimonials?.map((t, i) => (
+              <div key={i} className="service-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                <p style={{ fontStyle: 'italic', marginBottom: '30px', fontSize: '15px', color: 'var(--text-color)', lineHeight: '1.6' }}>"{t.content}"</p>
+                <div className="testimonial-author" style={{ justifyContent: 'flex-start' }}>
+                  <div className="author-image" style={{ width: '40px', height: '40px', background: 'var(--accent-color)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontWeight: 'bold' }}>
+                    {t.name.charAt(0)}
+                  </div>
+                  <div className="author-info" style={{ textAlign: 'left' }}>
+                    <h5 style={{ fontSize: '15px' }}>{t.name}</h5>
+                    <p style={{ fontSize: '12px' }}>{t.role}</p>
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </section>
       </div>

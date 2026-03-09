@@ -47,5 +47,16 @@ export const profileData = {
     { title: "Programming League National", category: "Web Design", description: "Designed the official website for PLN 2025.", featured: false },
     { title: "Data Analytic Dashboard", category: "Data Visualization", description: "Datathon 2024. Built a Power BI dashboard to visualize data.", featured: false },
     { title: "Competitive Programming", category: "Competitions", award: "Finalist", description: "Codenection 2024 & Dean's Cup.", featured: false }
+  ],
+  testimonials: [
+    { name: "Internship Lead", role: "ANT International", content: "Kim's ability to blend AI logic with seamless front-end design is truly unique. He brings a level of intelligence to products that goes beyond just code." },
+    { name: "Jax Choong", role: "Hackathon Teammate", content: "Kim is a powerhouse when it comes to integrating AI into functioning products. His speed and architectural vision during development are unmatched." },
+    { name: "Chow Ying Tong", role: "Project Collaborator", content: "Working with Kim was a breeze. He consistently delivers clean, scalable backend code while keeping the entire user experience in mind." },
+    { name: "Tan Shan Chien", role: "Software Engineer", content: "Kim Hong Zhang is a very responsible engineer. In the times I worked with him, he managed multiple projects simultaneously without letting any of their quality down. Kim has a solid foundation in agentic architecture and backend development. He is one of the few people I would trust to handle the entire backend." },
+    { name: "Marcus Mah", role: "Frontend Developer", content: "Kim Hong Zhang is a highly responsible and hardworking engineer who consistently gives his best effort in every commitment he takes on. During hackathons and team projects, he demonstrates strong dedication, reliability, and a willingness to go the extra mile to ensure the team delivers quality results. He also have a solid engineering skills with a strong foundation in backend development and system architecture, allowing him to design and implement robust solutions under tight timelines. Having worked with him before, I can confidently say he is someone you can trust to take ownership of tasks and contribute meaningfully to the team. He is also highly collaborative, communicates effectively, and works well with teammates to solve complex problems." },
+    { name: "Goh Sheng Fung", role: "AI Researcher", content: "Incredibly passionate about AI and machine learning. Kim's dedication to exploring and implementing the latest models is truly inspiring." },
+    { name: "Kuan Nim Joe", role: "Software Developer", content: "A highly capable developer with a sharp focus on delivering functional and highly scalable systems. Kim is a dependable teammate who always brings innovative solutions to the table." },
+    { name: "Gnaw Yuan Zhen", role: "Technical Lead", content: "Kim has an exceptional eye for detail, coupled with a deep understanding of full-stack engineering. He rapidly prototypes complex logic while keeping performance a priority." },
+    { name: "Lim Jia Le", role: "Project Manager", content: "Kim is a pleasure to work with. He meets deadlines, handles code architecture smoothly, and manages to communicate technical concepts comprehensively to everyone on the team." }
   ]
 };

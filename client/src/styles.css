@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
 :root {
   --bg-color: #ffffff;
@@ -86,12 +86,18 @@ header {
   align-items: center;
 }
 
+.logo-img {
+  height: 60px; /* Adjust scale based on original image whitespace */
+  object-fit: contain;
+  margin-left: -15px; /* Offset whitespace if any */
+}
+
 .logo {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-weight: 600;
-  font-size: 28px;
-  letter-spacing: -0.5px;
+  font-family: 'Great Vibes', cursive;
+  font-weight: 400;
+  font-size: 38px;
+  color: #607d8b; /* Slate brush color matching the image */
+  letter-spacing: 1px;
 }
 
 nav ul {
@@ -467,11 +473,10 @@ nav ul li a:hover {
 }
 
 .logo-white {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-weight: 600;
-  font-size: 24px;
-  letter-spacing: -0.5px;
+  font-family: 'Great Vibes', cursive;
+  font-weight: 400;
+  font-size: 38px;
+  letter-spacing: 1px;
   color: #fff;
 }
 

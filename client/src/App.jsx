@@ -39,7 +39,9 @@ function App() {
     <div className="app">
       <div className="container">
         <header>
-          <div className="logo">HongZhang</div>
+          <a href="#">
+            <img src="/logo.png" className="logo-img" alt="HongZhang Logo" />
+          </a>
           <nav>
             <ul>
               <li><a href="#about">About</a></li>

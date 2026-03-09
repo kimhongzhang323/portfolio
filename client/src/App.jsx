@@ -246,12 +246,12 @@ function App() {
             </div>
           </div>
           <div className="footer-bottom">
-            <div className="logo-white">HongZhang</div>
+            <div></div>
             <div className="social-links">
               <a href={profile?.socialLinks?.github}>Github</a>
               <a href={profile?.socialLinks?.linkedin}>LinkedIn</a>
             </div>
-            <div className="copy">© 2024 Design Studio</div>
+            <div className="copy">© Copyright</div>
           </div>
         </div>
       </footer>

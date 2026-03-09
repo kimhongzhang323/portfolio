@@ -49,10 +49,25 @@ section {
 
 /* Typography */
 h1 {
-  font-size: 110px;
+  font-size: 80px;
   font-weight: 500;
-  line-height: 0.9;
-  letter-spacing: -3px;
+  line-height: 1.1;
+  letter-spacing: -2px;
+}
+
+.typing-cursor {
+  display: inline-block;
+  width: 4px;
+  height: 0.8em;
+  background-color: var(--accent-color);
+  margin-left: 5px;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 h2 {
@@ -486,7 +501,7 @@ nav ul li a:hover {
 }
 
 @media (max-width: 992px) {
-  h1 { font-size: 80px; }
+  h1 { font-size: 56px; }
   .services-grid, .projects-grid { grid-template-columns: 1fr; }
   .hero-top { flex-direction: column-reverse; gap: 40px; }
   .hero { flex-direction: column; align-items: flex-start; gap: 40px; }
@@ -494,7 +509,7 @@ nav ul li a:hover {
 }
 
 @media (max-width: 600px) {
-  h1 { font-size: 60px; }
+  h1 { font-size: 40px; }
   .footer-nav { flex-direction: column; gap: 40px; }
 }
 /* Scroll Animations */

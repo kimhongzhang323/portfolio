@@ -16,6 +16,38 @@ function App() {
   const profile = profileData;
   const projects = profileData.projects;
 
+  const [text, setText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
+  const typeWords = ["an AI Student", "a Backend Engineer", "a Hackathon Winner"];
+
+  useEffect(() => {
+    const handleType = () => {
+      const current = loopNum % typeWords.length;
+      const fullText = typeWords[current];
+
+      setText(isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1));
+      setTypingSpeed(isDeleting ? 50 : 100);
+
+      if (!isDeleting && text === fullText) {
+        setTypingSpeed(2500); // Wait before deleting
+        setIsDeleting(true);
+      } else if (isDeleting && text === '') {
+        setIsDeleting(false);
+        setLoopNum(loopNum + 1);
+        setTypingSpeed(500); // Wait before typing next word
+      }
+    };
+
+    const timer = setTimeout(() => {
+      handleType();
+    }, typingSpeed);
+
+    return () => clearTimeout(timer);
+  }, [text, isDeleting, loopNum, typingSpeed]);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -54,7 +86,7 @@ function App() {
 
         <section className="hero-section">
           <div className="hero-top">
-            <h1>Product<br />Designer</h1>
+            <h1>Hi, I'm Kim<br/><span style={{ color: "var(--text-muted)" }}>and {text}</span><span className="typing-cursor"></span></h1>
             <div className="hero-image-wrapper">
               <img src="https://github.com/kimhongzhang323.png" alt={profile?.name} />
             </div>

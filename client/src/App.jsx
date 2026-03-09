@@ -157,9 +157,14 @@ function App() {
               <div key={i} className="timeline-item">
                 <div className="timeline-dot"></div>
                 <div className="timeline-content">
-                  <div className="timeline-date">{exp.period}</div>
-                  <h3 className="timeline-role">{exp.role}</h3>
-                  <div className="timeline-company">{exp.company}</div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px', gap: '20px' }}>
+                    <div>
+                      <div className="timeline-date">{exp.period}</div>
+                      <h3 className="timeline-role">{exp.role}</h3>
+                      <div className="timeline-company">{exp.company}</div>
+                    </div>
+                    {exp.logo && <img src={exp.logo} alt={`${exp.company} logo`} style={{ height: '150px', maxWidth: '300px', objectFit: 'contain', mixBlendMode: 'multiply' }} />}
+                  </div>
                   <p className="timeline-desc">{exp.desc}</p>
                 </div>
               </div>
@@ -174,9 +179,14 @@ function App() {
               <div key={i} className="timeline-item">
                 <div className="timeline-dot"></div>
                 <div className="timeline-content">
-                  <div className="timeline-date">{edu.period}</div>
-                  <h3 className="timeline-role">{edu.school}</h3>
-                  <div className="timeline-company">{edu.degree}</div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px', gap: '20px' }}>
+                    <div>
+                      <div className="timeline-date">{edu.period}</div>
+                      <h3 className="timeline-role">{edu.school}</h3>
+                      <div className="timeline-company">{edu.degree}</div>
+                    </div>
+                    {edu.logo && <img src={edu.logo} alt={`${edu.school} logo`} style={{ height: '150px', maxWidth: '300px', objectFit: 'contain', mixBlendMode: 'multiply' }} />}
+                  </div>
                 </div>
               </div>
             ))}
@@ -244,6 +254,8 @@ function App() {
                 <h6>Contact</h6>
                 <ul>
                   <li><a href={`mailto:${profile?.email}`}>{profile?.email}</a></li>
+                  <li><a href={`tel:${profile?.phone}`} style={{ textDecoration: 'none', color: 'inherit' }}>{profile?.phone}</a></li>
+                  <li><a href={`https://wa.me/${profile?.phone?.replace(/[^0-9]/g, '')}`} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>WhatsApp Me</a></li>
                   <li>{profile?.location}</li>
                 </ul>
               </div>

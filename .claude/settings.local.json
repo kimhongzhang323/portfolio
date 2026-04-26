@@ -5,7 +5,20 @@
       "Bash(mkdir -p extracted)",
       "Bash(tar -xf webfetch-1776927796926-enzwv3.bin -C extracted)",
       "Bash(npm run *)",
-      "Bash(npm install *])"
+      "Bash(npm install *])",
+      "Bash(gunzip -c \"C:/Users/kimho/.claude/projects/C--Users-kimho-OneDrive-Documents-GitHub-portfolio/8b1e7ec3-bddd-4c41-b05c-496f193f0934/tool-results/webfetch-1777177944000-rou0kt.bin\")",
+      "Read(//tmp/**)",
+      "Bash(tar *)",
+      "Bash(cp /tmp/portfolio/project/assets/zy-logo.png client/public/zy-logo.png)",
+      "Bash(cp \"/tmp/portfolio/project/sandbox/landing-demo.html\" client/public/sandbox/)",
+      "Bash(cp \"/tmp/portfolio/project/sandbox/dashboard-demo.html\" client/public/sandbox/)",
+      "Bash(node *)",
+      "Bash(cygpath -w \"/tmp/portfolio/project/Z&Y Studio.html\")",
+      "Bash(wslpath -w \"/tmp/portfolio/project/Z&Y Studio.html\")",
+      "Bash(npm i *)",
+      "Bash(grep -r \"logo\\\\.png\\\\|mmu\\\\.png\\\\|UM\\\\.png\\\\|data\\\\.js\" /c/Users/kimho/OneDrive/Documents/GitHub/portfolio/client/src/ cat /c/Users/kimho/OneDrive/Documents/GitHub/portfolio/client/.env.example echo \"---\" cat /c/Users/kimho/OneDrive/Documents/GitHub/portfolio/package.json echo \"---\" cat /c/Users/kimho/OneDrive/Documents/GitHub/portfolio/server/src/index.js)",
+      "Bash(rm client/src/data.js client/public/logo.png client/public/mmu.png client/public/UM.png client/.env.example zy_design_temp.html zy_styles_extracted.css)",
+      "Bash(rm -rf server)"
     ]
   }
 }

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AnalyticOS — Dashboard Demo · Z&Y Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0f0f13;--surface:#16161d;--surface2:#1e1e28;--border:#2a2a38;
+  --ink:#f0f0f5;--muted:#6b6b80;--faint:#2e2e3e;
+  --accent:#6c63ff;--green:#10b981;--red:#f43f5e;--yellow:#f59e0b;--blue:#3b82f6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;min-height:100vh;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+
+/* TOPBAR */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:200;background:#0a0a0e;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px;}
+.topbar-left{display:flex;align-items:center;gap:12px;}
+.topbar-logo{width:28px;height:28px;background:var(--accent);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:white;}
+.topbar-name{font-size:15px;font-weight:800;letter-spacing:-.3px;}
+.back-link{font-size:12px;color:var(--muted);padding:5px 12px;border:1px solid var(--border);border-radius:20px;transition:all .2s;margin-left:8px;}
+.back-link:hover{color:var(--ink);border-color:var(--muted);}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.topbar-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#00d4aa);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:white;}
+.date-badge{font-size:12px;color:var(--muted);}
+.theme-btn{padding:5px 14px;border-radius:20px;border:1px solid var(--border);font-size:11px;font-weight:600;color:var(--muted);background:transparent;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;}
+.theme-btn:hover{color:var(--ink);border-color:var(--muted);}
+
+/* LAYOUT */
+.layout{display:flex;padding-top:52px;min-height:100vh;}
+.sidebar{width:220px;background:var(--surface);border-right:1px solid var(--border);padding:24px 0;position:fixed;top:52px;bottom:0;overflow-y:auto;flex-shrink:0;}
+.sidebar-section{padding:0 16px;margin-bottom:28px;}
+.sidebar-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;padding:0 8px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .2s;margin-bottom:2px;}
+.nav-item:hover{background:var(--faint);color:var(--ink);}
+.nav-item.active{background:rgba(108,99,255,.15);color:var(--accent);font-weight:700;}
+.nav-item-icon{font-size:15px;width:20px;text-align:center;}
+.nav-badge{margin-left:auto;background:var(--accent);color:white;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;}
+
+.main{margin-left:220px;flex:1;padding:32px;}
+
+/* HEADER */
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;}
+.page-title{font-size:24px;font-weight:800;letter-spacing:-.5px;}
+.page-sub{font-size:13px;color:var(--muted);margin-top:3px;}
+.header-actions{display:flex;gap:10px;}
+.hdr-btn{padding:8px 18px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:all .2s;}
+.hdr-btn-ghost{background:var(--surface2);color:var(--ink);border:1px solid var(--border);}
+.hdr-btn-ghost:hover{border-color:var(--muted);}
+.hdr-btn-accent{background:var(--accent);color:white;}
+.hdr-btn-accent:hover{filter:brightness(1.1);}
+
+/* KPI CARDS */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;transition:all .25s;cursor:default;}
+.kpi-card:hover{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset;}
+.kpi-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
+.kpi-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.kpi-badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;}
+.kpi-up{background:rgba(16,185,129,.12);color:var(--green);}
+.kpi-down{background:rgba(244,63,94,.12);color:var(--red);}
+.kpi-num{font-size:28px;font-weight:900;letter-spacing:-1px;line-height:1;margin-bottom:4px;}
+.kpi-label{font-size:12px;color:var(--muted);font-weight:500;}
+
+/* CHARTS ROW */
+.charts-row{display:grid;grid-template-columns:1.6fr 1fr;gap:16px;margin-bottom:24px;}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;}
+.chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
+.chart-title{font-size:14px;font-weight:700;}
+.chart-period{display:flex;gap:4px;}
+.period-btn{padding:4px 11px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--muted);font-family:'Inter',sans-serif;transition:all .2s;}
+.period-btn.active{background:var(--faint);color:var(--ink);}
+.bar-chart{display:flex;align-items:flex-end;gap:8px;height:140px;}
+.bc-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.bc-bar{width:100%;border-radius:5px 5px 0 0;transition:height .7s cubic-bezier(.16,1,.3,1);cursor:pointer;position:relative;}
+.bc-bar:hover{filter:brightness(1.2);}
+.bc-lbl{font-size:10px;color:var(--muted);}
+.donut-chart{display:flex;align-items:center;gap:24px;}
+.donut-svg{flex-shrink:0;}
+.donut-legend{display:flex;flex-direction:column;gap:10px;}
+.legend-row{display:flex;align-items:center;gap:8px;}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.legend-label{font-size:12px;color:var(--muted);}
+.legend-pct{font-size:12px;font-weight:700;margin-left:auto;}
+
+/* TABLE */
+.table-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:24px;}
+.table-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--border);}
+.table-search{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-size:12px;color:var(--ink);font-family:'Inter',sans-serif;outline:none;width:200px;transition:border-color .2s;}
+.table-search:focus{border-color:var(--accent);}
+table{width:100%;border-collapse:collapse;}
+thead th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:12px 24px;text-align:left;background:var(--surface2);border-bottom:1px solid var(--border);}
+tbody tr{border-bottom:1px solid var(--border);transition:background .15s;cursor:default;}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:var(--faint);}
+tbody td{padding:14px 24px;font-size:13px;vertical-align:middle;}
+.user-cell{display:flex;align-items:center;gap:10px;}
+.user-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:white;flex-shrink:0;}
+.user-name{font-weight:600;font-size:13px;}
+.user-email{font-size:11px;color:var(--muted);}
+.status-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+.s-active{background:rgba(16,185,129,.12);color:var(--green);}
+.s-pending{background:rgba(245,158,11,.12);color:var(--yellow);}
+.s-inactive{background:rgba(107,107,128,.12);color:var(--muted);}
+
+/* BOTTOM ROW */
+.bottom-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.mini-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;}
+.mini-card-title{font-size:13px;font-weight:700;margin-bottom:16px;}
+.sparkline-row{display:flex;align-items:flex-end;gap:3px;height:40px;margin-bottom:8px;}
+.sp-bar{border-radius:2px;flex:1;transition:height .5s cubic-bezier(.16,1,.3,1);}
+.activity-list{display:flex;flex-direction:column;gap:10px;}
+.activity-item{display:flex;align-items:center;gap:10px;font-size:12px;}
+.activity-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.activity-text{color:var(--muted);line-height:1.4;}
+.activity-time{margin-left:auto;color:var(--faint);font-size:10px;flex-shrink:0;}
+.goal-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;}
+.goal-bar-bg{height:6px;background:var(--faint);border-radius:3px;overflow:hidden;margin-bottom:12px;}
+.goal-bar{height:100%;border-radius:3px;transition:width .8s cubic-bezier(.16,1,.3,1);}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">A</div>
+    <span class="topbar-name">AnalyticOS</span>
+    <a href="../Z&Y Studio.html" class="back-link">← Z&Y Studio</a>
+  </div>
+  <div class="topbar-right">
+    <span class="date-badge">Apr 26, 2025</span>
+    <button class="theme-btn" onclick="toggleTheme()">☀ Light</button>
+    <div class="topbar-avatar">K</div>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Overview</div>
+      <div class="nav-item active"><span class="nav-item-icon">📊</span> Dashboard</div>
+      <div class="nav-item"><span class="nav-item-icon">📈</span> Analytics</div>
+      <div class="nav-item"><span class="nav-item-icon">🛒</span> Revenue <span class="nav-badge">3</span></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Manage</div>
+      <div class="nav-item"><span class="nav-item-icon">👥</span> Users</div>
+      <div class="nav-item"><span class="nav-item-icon">📦</span> Products</div>
+      <div class="nav-item"><span class="nav-item-icon">🎫</span> Orders</div>
+      <div class="nav-item"><span class="nav-item-icon">🔔</span> Alerts <span class="nav-badge">7</span></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Settings</div>
+      <div class="nav-item"><span class="nav-item-icon">⚙️</span> Settings</div>
+      <div class="nav-item"><span class="nav-item-icon">🔌</span> Integrations</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <div class="page-title">Overview Dashboard</div>
+        <div class="page-sub">Welcome back, Kim — here's what's happening.</div>
+      </div>
+      <div class="header-actions">
+        <button class="hdr-btn hdr-btn-ghost">⬇ Export</button>
+        <button class="hdr-btn hdr-btn-accent">+ New Report</button>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-grid" id="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-top"><div class="kpi-icon" style="background:rgba(108,99,255,.15)">💰</div><span class="kpi-badge kpi-up">↑ 12.4%</span></div>
+        <div class="kpi-num">RM 48,220</div><div class="kpi-label">Total Revenue</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-top"><div class="kpi-icon" style="background:rgba(16,185,129,.15)">👥</div><span class="kpi-badge kpi-up">↑ 8.1%</span></div>
+        <div class="kpi-num">3,847</div><div class="kpi-label">Active Users</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-top"><div class="kpi-icon" style="background:rgba(59,130,246,.15)">🛒</div><span class="kpi-badge kpi-up">↑ 5.3%</span></div>
+        <div class="kpi-num">1,294</div><div class="kpi-label">Orders This Month</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-top"><div class="kpi-icon" style="background:rgba(244,63,94,.15)">📉</div><span class="kpi-badge kpi-down">↓ 0.4%</span></div>
+        <div class="kpi-num">6.2%</div><div class="kpi-label">Churn Rate</div>
+      </div>
+    </div>
+
+    <!-- CHARTS -->
+    <div class="charts-row">
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title">Monthly Revenue</div>
+          <div class="chart-period">
+            <button class="period-btn" onclick="setPeriod(this,'3m')">3M</button>
+            <button class="period-btn active" onclick="setPeriod(this,'6m')">6M</button>
+            <button class="period-btn" onclick="setPeriod(this,'1y')">1Y</button>
+          </div>
+        </div>
+        <div class="bar-chart" id="bar-chart">
+          <!-- Generated by JS -->
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><div class="chart-title">Traffic Sources</div></div>
+        <div class="donut-chart">
+          <svg class="donut-svg" width="100" height="100" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="38" fill="none" stroke="#2a2a38" stroke-width="18"/>
+            <circle cx="50" cy="50" r="38" fill="none" stroke="#6c63ff" stroke-width="18" stroke-dasharray="150 89" stroke-dashoffset="25" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="38" fill="none" stroke="#10b981" stroke-width="18" stroke-dasharray="48 191" stroke-dashoffset="-125" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="38" fill="none" stroke="#f59e0b" stroke-width="18" stroke-dasharray="41 198" stroke-dashoffset="-173" stroke-linecap="round"/>
+          </svg>
+          <div class="donut-legend">
+            <div class="legend-row"><div class="legend-dot" style="background:#6c63ff"></div><span class="legend-label">Organic</span><span class="legend-pct">63%</span></div>
+            <div class="legend-row"><div class="legend-dot" style="background:#10b981"></div><span class="legend-label">Direct</span><span class="legend-pct">20%</span></div>
+            <div class="legend-row"><div class="legend-dot" style="background:#f59e0b"></div><span class="legend-label">Referral</span><span class="legend-pct">17%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-card">
+      <div class="table-header">
+        <div class="chart-title">Recent Users</div>
+        <input class="table-search" placeholder="🔍  Search users…" oninput="filterTable(this.value)"/>
+      </div>
+      <table id="user-table">
+        <thead><tr><th>User</th><th>Plan</th><th>Revenue</th><th>Joined</th><th>Status</th></tr></thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+
+    <!-- BOTTOM ROW -->
+    <div class="bottom-row">
+      <div class="mini-card">
+        <div class="mini-card-title">Daily Active Users</div>
+        <div class="sparkline-row" id="sparkline"></div>
+        <div style="font-size:24px;font-weight:900;letter-spacing:-.5px;">3,847</div>
+        <div style="font-size:12px;color:var(--green);margin-top:4px;">↑ 127 from yesterday</div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-card-title">Recent Activity</div>
+        <div class="activity-list">
+          <div class="activity-item"><div class="activity-dot" style="background:#6c63ff"></div><div class="activity-text">New user <b>Sarah K.</b> signed up</div><div class="activity-time">2m ago</div></div>
+          <div class="activity-item"><div class="activity-dot" style="background:#10b981"></div><div class="activity-text">Order #4821 completed</div><div class="activity-time">8m ago</div></div>
+          <div class="activity-item"><div class="activity-dot" style="background:#f59e0b"></div><div class="activity-text">Server CPU spike detected</div><div class="activity-time">15m ago</div></div>
+          <div class="activity-item"><div class="activity-dot" style="background:#6c63ff"></div><div class="activity-text"><b>Marcus</b> upgraded to Pro</div><div class="activity-time">1h ago</div></div>
+        </div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-card-title">Monthly Goals</div>
+        <div class="goal-row"><span>Revenue</span><span style="color:var(--green);font-weight:700">RM 48k / 50k</span></div>
+        <div class="goal-bar-bg"><div class="goal-bar" id="g1" style="width:0;background:#6c63ff"></div></div>
+        <div class="goal-row"><span>New Users</span><span style="color:var(--yellow);font-weight:700">842 / 1,000</span></div>
+        <div class="goal-bar-bg"><div class="goal-bar" id="g2" style="width:0;background:#f59e0b"></div></div>
+        <div class="goal-row"><span>Retention</span><span style="color:var(--green);font-weight:700">93.8% / 90%</span></div>
+        <div class="goal-bar-bg"><div class="goal-bar" id="g3" style="width:0;background:#10b981"></div></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+// Bar chart
+const months6=['Oct','Nov','Dec','Jan','Feb','Mar'];
+const vals6=[52,68,45,72,60,88];
+const months3=['Jan','Feb','Mar'];
+const vals3=[72,60,88];
+const colors=['#6c63ff','#6c63ff','#6c63ff','#6c63ff','#6c63ff','#10b981'];
+function renderBars(months,vals){
+  const el=document.getElementById('bar-chart');
+  el.innerHTML=months.map((m,i)=>`
+    <div class="bc-col">
+      <div class="bc-bar" style="height:0;background:${colors[i]||'#6c63ff'};border-radius:5px 5px 0 0;" data-h="${vals[i]}"></div>
+      <div class="bc-lbl">${m}</div>
+    </div>
+  `).join('');
+  setTimeout(()=>{
+    el.querySelectorAll('.bc-bar').forEach(b=>{b.style.transition='height .7s cubic-bezier(.16,1,.3,1)';b.style.height=b.dataset.h+'%';});
+  },100);
+}
+renderBars(months6,vals6);
+function setPeriod(btn,p){
+  document.querySelectorAll('.period-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(p==='3m') renderBars(months3,vals3);
+  else renderBars(months6,vals6);
+}
+
+// Sparkline
+const spData=[55,40,62,48,70,58,80,65,75,88,72,95];
+const spEl=document.getElementById('sparkline');
+spEl.innerHTML=spData.map((v,i)=>`<div class="sp-bar" data-h="${v}" style="height:4px;background:${v>80?'#6c63ff':'#2a2a38'}"></div>`).join('');
+setTimeout(()=>{spEl.querySelectorAll('.sp-bar').forEach((b,i)=>{b.style.transition=`height .5s .${i}s cubic-bezier(.16,1,.3,1)`;b.style.height=b.dataset.h+'%';});},200);
+
+// Goals
+setTimeout(()=>{
+  document.getElementById('g1').style.width='96%';
+  document.getElementById('g2').style.width='84%';
+  document.getElementById('g3').style.width='100%';
+},300);
+
+// Table
+const users=[
+  {name:'Sarah Chen',email:'sarah@notion.com',plan:'Pro',rev:'RM 2,400',joined:'Jan 12',status:'active',color:'#6c63ff'},
+  {name:'Marcus Tan',email:'marcus@linear.io',plan:'Growth',rev:'RM 1,800',joined:'Feb 3',status:'active',color:'#10b981'},
+  {name:'Aisha Malik',email:'aisha@vercel.com',plan:'Starter',rev:'RM 0',joined:'Mar 8',status:'pending',color:'#f59e0b'},
+  {name:'Jake Lim',email:'jake@figma.com',plan:'Pro',rev:'RM 2,400',joined:'Jan 28',status:'active',color:'#3b82f6'},
+  {name:'Priya Nair',email:'priya@stripe.com',plan:'Scale',rev:'RM 9,600',joined:'Dec 15',status:'active',color:'#ec4899'},
+  {name:'Tom Bradley',email:'tom@airbnb.com',plan:'Starter',rev:'RM 0',joined:'Mar 20',status:'inactive',color:'#6b6b80'},
+];
+function renderTable(data){
+  document.getElementById('table-body').innerHTML=data.map(u=>`
+    <tr>
+      <td><div class="user-cell"><div class="user-av" style="background:${u.color}">${u.name[0]}</div><div><div class="user-name">${u.name}</div><div class="user-email">${u.email}</div></div></div></td>
+      <td style="font-size:13px;font-weight:600">${u.plan}</td>
+      <td style="font-size:13px;font-weight:700;color:${u.plan==='Scale'?'#10b981':'inherit'}">${u.rev}</td>
+      <td style="font-size:13px;color:var(--muted)">${u.joined}</td>
+      <td><span class="status-badge ${u.status==='active'?'s-active':u.status==='pending'?'s-pending':'s-inactive'}">${u.status}</span></td>
+    </tr>
+  `).join('');
+}
+renderTable(users);
+function filterTable(q){renderTable(users.filter(u=>u.name.toLowerCase().includes(q.toLowerCase())||u.email.toLowerCase().includes(q.toLowerCase())));}
+
+// Theme toggle
+let light=false;
+function toggleTheme(){
+  light=!light;
+  const r=document.documentElement;
+  if(light){
+    r.style.setProperty('--bg','#f5f5f7');r.style.setProperty('--surface','#ffffff');r.style.setProperty('--surface2','#f0f0f5');
+    r.style.setProperty('--border','#e5e5ea');r.style.setProperty('--ink','#0d0d0d');r.style.setProperty('--muted','#6b7280');
+    r.style.setProperty('--faint','#f0f0f5');document.querySelector('.theme-btn').textContent='🌙 Dark';
+  } else {
+    r.style.setProperty('--bg','#0f0f13');r.style.setProperty('--surface','#16161d');r.style.setProperty('--surface2','#1e1e28');
+    r.style.setProperty('--border','#2a2a38');r.style.setProperty('--ink','#f0f0f5');r.style.setProperty('--muted','#6b6b80');
+    r.style.setProperty('--faint','#2e2e3e');document.querySelector('.theme-btn').textContent='☀ Light';
+  }
+}
+</script>
+</body>
+</html>
